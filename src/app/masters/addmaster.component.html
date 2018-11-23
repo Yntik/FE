@@ -1,0 +1,25 @@
+<p *ngIf="!getPage">Загрузка...</p>
+
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Форма добавления мастера</h1>
+    <button type="button" class="btn btn-success" (click)="onlist()">Назад к списку</button>
+    <div style="width: 300px" >
+      <form [formGroup]="addForm" (ngSubmit)="pushMaster()">
+        <label class="col-form-label">Имя</label>
+        <input class="form-control" type="text" placeholder="Имя" formControlName="name">
+        <label class="col-form-label">Фамилия</label>
+        <input class="form-control" type="text" placeholder="Фамилия" formControlName="surname">
+        <label class="col-form-label">Рейтинг</label>
+        <input class="form-control" type="number" min="0" max="5" formControlName="rating">
+        <label class="col-form-label">Город</label>
+        <select class="custom-select" [ngModel]="citys[0]" formControlName="citys" >
+          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        </select>
+        <p></p>
+        <button type="submit" class="btn btn-success">Добавить в список мастера</button>
+      </form>
+    </div>
+  </div>
+</div>

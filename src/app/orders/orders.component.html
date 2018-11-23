@@ -1,0 +1,78 @@
+<p *ngIf="!getPage">Загрузка...</p>
+
+<div class="container" >
+  <div class="jumbotron" *ngIf="getPage && onList">
+    <h1>Список Заказов</h1>
+    <p>Количество заказов {{length}}</p>
+    <button type="button" class="btn btn-success" (click)="onadd()">Добавить заказ</button>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Имя клиента</th>
+        <th scope="col">Электронный адрес</th>
+        <th scope="col">Город</th>
+        <th scope="col">Размер часов</th>
+        <th scope="col">Имя мастера</th>
+        <th scope="col">Начало работы</th>
+        <th scope="col">Конец работы</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info" *ngFor="let order of orders">
+        <th scope="row">{{order.client}}</th>
+        <td>{{order.email}}</td>
+        <td>{{order.city}} </td>
+        <td>{{order.size}}</td>
+        <td>{{order.name}}</td>
+        <td>{{order.start | date : 'dd-MM-yyyy, H:mm'}}</td>
+        <td>{{order.end | date : 'dd-MM-yyyy, H:mm'}}</td>
+        <td><button type="button" class="btn btn-warning" (click)="onEdit(order)">Редактировать</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(order.id)">Удалить</button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="jumbotron" *ngIf="getPage && !onList">
+    <h1>Редактирование заказа</h1>
+    <button type="button" class="btn btn-success" (click)="onlist()">Назад к списку</button>
+    <div style="width: 300px" >
+      <form [formGroup]="addForm" (ngSubmit)="editorder()" *ngIf="!success">
+        <label class="col-form-label">Действующее имя '{{order.client}}'</label>
+        <input class="form-control" type="text" placeholder="Имя" [ngModel]="order.client" formControlName="name">
+        <label class="col-form-label">Действующий Email '{{order.email}} '</label>
+        <input class="form-control" type="Email" placeholder="Email@example.com"  [ngModel]="order.email"formControlName="email">
+        <label class="col-form-label">Действующий размер часов {{order.size }}</label>
+        <select class="custom-select" [ngModel]="order.size" formControlName="size" >
+          <option  [value]="1">1</option>
+          <option  [value]="2">2</option>
+          <option  [value]="3">3</option>
+        </select>
+        <label class="col-form-label">Действующий город {{order.city}} </label>
+        <select class="custom-select" [ngModel]="order.city" formControlName="citys" >
+          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        </select>
+        <label class="col-form-label">Текущая дата и время заказа:<br>
+          {{order.start | date : 'dd-MM-yyyy, H:mm'}}
+        </label>
+        <label class="col-form-label" *ngIf="freemasters" style="color: red">В указаное время нет свободных мастеров</label>
+        <label class="col-form-label" *ngIf="freemasters" style="color: red">Выбирете другое время</label>
+        <input class="form-control" type="datetime-local"  min="00:00" max="23:00"  step="3600" formControlName="datetime">
+        <p></p>
+        <button type="button" class="btn btn-success" (click)="checkmasters()">Показать список мастеров</button>
+        <p></p>
+        <select class="custom-select"  formControlName="master" >
+          <option *ngFor="let master of masters" [value]="master.id" >
+            {{master.name}}
+            {{master.surname}}
+            Рейтинг
+            {{master.rating}}
+          </option>
+        </select>
+        <button type="submit" class="btn btn-success" >Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+</div>

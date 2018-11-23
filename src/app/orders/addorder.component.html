@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Форма добавления заказа</h1>
+    <button type="button" class="btn btn-success" (click)="onlist()">Назад к списку</button>
+    <div style="width: 300px" >
+      <form [formGroup]="addForm" (ngSubmit)="pushorder()" >
+        <label class="col-form-label">Имя </label>
+        <input class="form-control" type="text" placeholder="Имя" formControlName="name">
+        <label class="col-form-label">Email </label>
+        <input class="form-control" type="Email" placeholder="Email@example.com" formControlName="email">
+        <label class="col-form-label">Размер часов </label>
+        <select class="custom-select" formControlName="size" (change)="checkmasters(0)">
+          <option  [value]="1">1</option>
+          <option  [value]="2">2</option>
+          <option  [value]="3">3</option>
+        </select>
+        <label class="col-form-label">Город</label>
+        <select class="custom-select"  formControlName="citys" (change)="checkmasters(1)">
+          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        </select>
+        <label class="col-form-label">Дата и время</label>
+        <input class="form-control" type="datetime-local" min="00:00" max="23:00"  step="3600" formControlName="datetime" (change)="checkmasters(2)">
+        <label class="col-form-label" *ngIf="freemasters" style="color: red">В указаное время нет свободных мастеров</label>
+        <label class="col-form-label" *ngIf="freemasters" style="color: red">Выбирете другое время</label><br>
+        <label class="col-form-label" *ngIf="this.inputControl[0] && this.inputControl[1] && this.inputControl[2]&& !freemasters" >Выбрать мастера</label>
+        <select class="custom-select"  *ngIf="this.inputControl[0] && this.inputControl[1] && this.inputControl[2] && !freemasters" formControlName="master"  >
+
+          <option *ngFor="let master of masters" [value]="master.id" >
+            {{master.name}}
+            {{master.surname}}
+            Рейтинг
+            {{master.rating}}
+          </option>
+        </select>
+        <p></p>
+        <p></p>
+        <button type="submit" class="btn btn-success"  [disabled]="!addForm.valid">Отправить заявку</button>
+      </form>
+    </div>
+  </div>
+</div>

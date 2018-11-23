@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="jumbotron">
+    <div *ngIf="flagedit">
+      <h1>Редактировать город</h1>
+      <div style="width: 300px" >
+        <form [formGroup]="addForm" (ngSubmit)="editclient()">
+          <label class="col-form-label">Действующие  имя города '{{client.name}}' </label>
+          <input class="form-control" type="text" [ngModel]="client.name" formControlName="name">
+          <label class="col-form-label">Действующий электронный адресс '{{client.email}}' </label>
+          <input class="form-control" type="text" [ngModel]="client.email" formControlName="email">
+          <label class="col-form-label">Действующие  имя города '{{client.city}}' </label>
+          <select class="custom-select" [ngModel]="client.city" formControlName="citys" >
+            <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+          </select>
+          <p></p>
+          <button type="submit" class="btn btn-success">Изменить</button>
+        </form>
+      </div>
+    </div>
+    <div >
+      <h1>Список клиентов</h1>
+      <p>Количество клиентов {{length}}</p>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Имя клиента</th>
+        <th scope="col">Электронная почта</th>
+        <th scope="col">Город</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info" *ngFor="let client of clients">
+        <th scope="row">{{client.name}}</th>
+        <td>{{client.email}}</td>
+        <td>{{client.city}}</td>
+        <td></td>
+        <td><button type="button" class="btn btn-warning" (click)="onedit(client)">Редактировать</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(client.id)">Удалить</button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

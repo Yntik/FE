@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="jumbotron">
+    <div *ngIf="!flagadd">
+      <h1>Список городов</h1>
+      <p>Количество городов {{length}}</p>
+      <button type="button" class="btn btn-success" (click)="onadd()" >Добавить Город</button>
+    </div>
+    <div *ngIf="flagadd">
+      <h1>Добавить город</h1>
+      <div style="width: 300px" >
+        <form [formGroup]="addForm" (ngSubmit)="addcity()">
+          <label class="col-form-label">Новый город</label>
+          <input class="form-control" type="text" placeholder="Новый город" formControlName="newcity" required>
+          <p></p>
+          <button type="submit" class="btn btn-success"  [disabled]="!addForm.valid">Добавить в список город</button>
+        </form>
+      </div>
+
+    </div>
+    <div *ngIf="flagedit">
+      <h1>Редактировать город</h1>
+      <div style="width: 300px" >
+        <form [formGroup]="addForm" (ngSubmit)="pushEdit()">
+          <label class="col-form-label">Действующие  имя клиента '{{city.city}}' </label>
+          <input class="form-control" type="text" [ngModel]="city.city" formControlName="newcity" required>
+          <p></p>
+          <button type="submit" class="btn btn-success" >Изменить</button>
+        </form>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Город</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info" *ngFor="let city of citys">
+        <th scope="row">{{city.city}}</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><button type="button" class="btn btn-warning" (click)="onedit(city)">Редактировать</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(city.id)">Удалить</button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,36 @@
+
+<header>
+  <nav  class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="alert alert-dismissible alert-secondary">
+        Clockwise Clockware.
+      </div>
+      <span *ngIf="this.router.routerState.snapshot.url != '/login' && this.router.routerState.snapshot.url != '/homepage' && this.router.routerState.snapshot.url != '/notfound'">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a [routerLink]="['/admin']" class="btn btn-info">Главная страница</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/masters']" class="btn btn-info">Список мастеров</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/citys']" class="btn btn-info">Список городов</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/orders']" class="btn btn-info">Список заказов</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/clients']" class="btn btn-info">Список клиентов</a>
+          </li>
+          <li class="nav-item">
+
+          </li>
+        </ul>
+        <button style="position: absolute; right: 20px ; top:  20px" type="button" class="btn btn-danger" (click)="logout()">Выход</button>
+      </span>
+    </div>
+  </nav>
+</header>
+
+<router-outlet>
+ </router-outlet>

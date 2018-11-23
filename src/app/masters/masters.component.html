@@ -1,0 +1,53 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<p *ngIf="!getPage">Загрузка...</p>
+
+<div class="container" >
+  <div class="jumbotron" *ngIf="getPage && onList">
+    <h1>Список мастеров</h1>
+    <p>Количество мастеров {{length}}</p>
+    <button type="button" class="btn btn-success" (click)="onadd()">Добавить мастера</button>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Имя</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Рейтинг</th>
+        <th scope="col">Город</th>
+        <th scope="col">Редактировать</th>
+        <th scope="col">Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info" *ngFor="let master of masters">
+        <th scope="row">{{master.name}}</th>
+        <td>{{master.surname}}</td>
+        <td>{{master.rating}}</td>
+        <td>{{master.city}} </td>
+        <td><button type="button" class="btn btn-warning" (click)="onEdit(master)">Редактировать</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(master.id)">Удалить</button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="jumbotron" *ngIf="getPage && !onList">
+    <h1>Редактирование мастера</h1>
+    <button type="button" class="btn btn-success" (click)="onlist()">Назад к списку</button>
+    <div style="width: 300px" >
+      <form [formGroup]="addForm" (ngSubmit)="editMaster()">
+        <label class="col-form-label">Действующее имя '{{master.name}}'</label>
+        <input class="form-control" type="text" placeholder="Имя" [ngModel]="master.name" formControlName="name">
+        <label class="col-form-label">Действующая фамилия '{{master.surname}}'</label>
+        <input class="form-control" type="text" placeholder="Фамилия" [ngModel]="master.surname" formControlName="surname">
+        <label class="col-form-label">Действующее рейтинг '{{master.rating}}'</label>
+        <input class="form-control" type="number" min="0" max="5" [ngModel]="master.rating" formControlName="rating">
+        <label class="col-form-label">Действующее город '{{master.city}}'</label>
+        <select class="custom-select" [ngModel]="master.city" formControlName="citys" >
+          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        </select>
+        <p></p>
+        <button type="submit" class="btn btn-success">Добавить изменения</button>
+      </form>
+    </div>
+  </div>
+</div>
