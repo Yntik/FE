@@ -14,7 +14,7 @@
         <label class="col-form-label">Рейтинг</label>
         <input class="form-control" type="number" min="0" max="5" formControlName="rating">
         <label class="col-form-label">Город</label>
-        <select class="custom-select" [ngModel]="citys[0]" formControlName="citys" >
+        <select class="custom-select" formControlName="citys" >
           <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
         </select>
         <p></p>
