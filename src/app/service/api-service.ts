@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { LocalStorageService } from './local-storage-service' ;
 import { Md5 } from 'ts-md5/dist/md5';
 import {Observable} from 'rxjs';
@@ -16,9 +16,9 @@ export class ApiService {
   }
 
   public checkToken(token: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/checktoken', {
-      token: token
-    });
+      const headers = new HttpHeaders ({'token': this.storage.load()});
+      const option = {headers: headers};
+    return this.http.get<ApiResponse>(this.BASE_URL + '/protected/checktoken',option);
   }
 
   public login(username: string, password: string): Observable<ApiResponse> {
@@ -30,25 +30,23 @@ export class ApiService {
   }
 
   public getMasters(): Observable<ApiResponse> {
-
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/masters', {
-      token: this.storage.load()
-    }) ;
+    const headers = new HttpHeaders ({'token': this.storage.load()});
+    const option = {headers: headers};
+    return this.http.get<ApiResponse>(this.BASE_URL + '/protected/master',option) ;
   }
 
   public getCitys(): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/citys', {
-    }) ;
+    return this.http.get<ApiResponse>(this.BASE_URL + '/city') ;
   }
 
   public getClients(): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/clientlist', {
-      token: this.storage.load()
-    }) ;
+      const headers = new HttpHeaders ({'token': this.storage.load()});
+      const options = {headers: headers};
+      return this.http.get<ApiResponse>(this.BASE_URL + '/protected/client',options) ;
   }
 
   public pushMaster(name: string, surname: string, rating: string, city: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/pushmaster', {
+    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/master', {
       token: this.storage.load(),
       name: name,
       surname: surname,
@@ -58,15 +56,13 @@ export class ApiService {
   }
 
   public letmasters(size: string, city: string, datetime: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/letmasters', {
-      size: size,
-      city: city,
-      datetime: datetime
-    });
+      const headers = new HttpHeaders ({'size': size, 'city':  encodeURI(city), 'datetime':datetime});
+      const options = {headers: headers};
+    return this.http.get<ApiResponse>(this.BASE_URL + '/getfreemasters', options);
   }
 
   public pushorder(name: string, email: string, city: string, size: string, master: object, datetime: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/pushorder', {
+    return this.http.post<ApiResponse>(this.BASE_URL + '/order', {
       client: name,
       email: email,
       size: size,
@@ -77,7 +73,7 @@ export class ApiService {
   }
 
   public editMaster(id: string, name: string, surname: string, rating: string, city: string): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/editmaster', {
+    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/master', {
       token: this.storage.load(),
       id: id,
       name: name,
@@ -88,7 +84,7 @@ export class ApiService {
   }
 
   public editclient(id: string, name: string, email: string, city: string): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/editclient', {
+    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/client', {
       token: this.storage.load(),
       id: id,
       name: name,
@@ -105,7 +101,7 @@ export class ApiService {
     city: string,
     datetime: string,
     idmaster: string): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/editorder', {
+    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/order', {
       token: this.storage.load(),
       id: id,
       client: name,
@@ -118,22 +114,20 @@ export class ApiService {
   }
 
   public delete(id: string, route: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/delete', {
-      token: this.storage.load(),
-      id: id,
-      route: route
-    });
+      const headers = new HttpHeaders ({'token': this.storage.load(), 'id':  String(id), 'route': route});
+      const options = {headers: headers};
+    return this.http.delete<ApiResponse>(this.BASE_URL + '/protected/delete', options);
   }
 
   public addcity(newcity: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/pushcity', {
+    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/city', {
       token: this.storage.load(),
       newcity: newcity
     });
   }
 
   public editcity(id: string, newcity: string): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/editcity', {
+    return this.http.put<ApiResponse>(this.BASE_URL + '/protected/city', {
       token: this.storage.load(),
       id: id,
       newcity: newcity
@@ -141,9 +135,9 @@ export class ApiService {
   }
 
   public getOrders(): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.BASE_URL + '/protected/getorders', {
-      token: this.storage.load(),
-    }) ;
+      const headers = new HttpHeaders ({'token': this.storage.load()});
+      const options = {headers: headers};
+    return this.http.get<ApiResponse>(this.BASE_URL + '/protected/order', options) ;
   }
 }
 
