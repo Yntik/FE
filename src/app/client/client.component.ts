@@ -18,7 +18,7 @@ export class ClientComponent implements OnInit{
   inputControl: number[] = [0, 0, 0] ;
   citys: any ;
   price_option: any ;
-  price: {} ;
+  price: Object;
   masters: any;
   client: any;
   freemasters = false ;
@@ -52,7 +52,11 @@ export class ClientComponent implements OnInit{
   checkmasters(index: number) {
     this.inputControl[index] = 1 ;
     if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
-        var price = {} ;
+        var price =  {
+            size: '',
+            price: ''
+
+        }
         for (var i in this.price_option){
             if (this.price_option[i].id === Number(this.addForm.value.price_option)) {
                 this.price = this.price_option[i] ;
