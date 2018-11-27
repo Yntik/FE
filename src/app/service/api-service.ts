@@ -39,6 +39,10 @@ export class ApiService {
     return this.http.get<ApiResponse>(this.BASE_URL + '/city') ;
   }
 
+    public getPrice(): Observable<ApiResponse> {
+        return this.http.get<ApiResponse>(this.BASE_URL + '/price') ;
+    }
+
   public getClients(): Observable<ApiResponse> {
       const headers = new HttpHeaders ({'token': this.storage.load()});
       const options = {headers: headers};
@@ -56,19 +60,20 @@ export class ApiService {
   }
 
   public letmasters(size: string, city: string, datetime: string): Observable<ApiResponse> {
-      const headers = new HttpHeaders ({'size': size, 'city':  encodeURI(city), 'datetime':datetime});
+      const headers = new HttpHeaders ({'size': size, 'city':  encodeURI(city), 'datetime': datetime});
       const options = {headers: headers};
     return this.http.get<ApiResponse>(this.BASE_URL + '/getfreemasters', options);
   }
 
-  public pushorder(name: string, email: string, city: string, size: string, master: object, datetime: string): Observable<ApiResponse> {
+  public pushorder(name: string, email: string, city: string, price_option: object, master: object, datetime: string): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.BASE_URL + '/order', {
-      client: name,
-      email: email,
-      size: size,
-      city: city,
-      master: master,
-      datetime: datetime
+        client: name,
+        email: email,
+        size: price_option.size,
+        price: price_option.price,
+        city: city,
+        master: master,
+        datetime: datetime
     });
   }
 
@@ -98,6 +103,7 @@ export class ApiService {
     name: string,
     email: string,
     size: string,
+    price: string,
     city: string,
     datetime: string,
     idmaster: string): Observable<ApiResponse> {
@@ -107,6 +113,7 @@ export class ApiService {
       client: name,
       email: email,
       size: size,
+        price: Number(price),
       city: city,
       idmaster: idmaster,
       datetime: datetime
@@ -133,6 +140,23 @@ export class ApiService {
       newcity: newcity
     });
   }
+
+    public editPrice(id: string, size: number, price: number): Observable<ApiResponse> {
+        return this.http.put<ApiResponse>(this.BASE_URL + '/protected/price', {
+            token: this.storage.load(),
+            id: id,
+            size: size,
+            price: Number(price)
+        });
+    }
+
+    public addPrice(size: Number, price: Number): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.BASE_URL + '/protected/price', {
+            token: this.storage.load(),
+            size: size,
+            price: price
+        });
+    }
 
   public getOrders(): Observable<ApiResponse> {
       const headers = new HttpHeaders ({'token': this.storage.load()});

@@ -7,11 +7,14 @@
         <input class="form-control" type="text" placeholder="Имя" formControlName="name">
         <label class="col-form-label">Email </label>
         <input class="form-control" type="Email" placeholder="Email@example.com" formControlName="email">
-        <label class="col-form-label">Размер часов </label>
-        <select class="custom-select" formControlName="size" (change)="checkmasters(0)">
-          <option  [value]="1">1</option>
-          <option  [value]="2">2</option>
-          <option  [value]="3">3</option>
+        <label class="col-form-label">Размер часов и стоимость</label>
+        <select class="custom-select" formControlName="price_option" (change)="checkmasters(0)">
+            <option  *ngFor="let price of price_option" [value]="price.id" >
+              {{price.size}}
+              размер
+              {{price.price}}
+              грн
+            </option>
         </select>
         <label class="col-form-label">Город</label>
         <select class="custom-select"  formControlName="citys" (change)="checkmasters(1)">

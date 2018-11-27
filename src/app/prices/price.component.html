@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="jumbotron">
+    <div *ngIf="!flagadd">
+      <h1>Список ценовой зависимости</h1>
+      <p>Количество зависимостей {{length}}</p>
+      <button type="button" class="btn btn-success" (click)="onadd()" >Добавить зависимость</button>
+    </div>
+    <div *ngIf="flagadd">
+      <h1>Добавить зависимость размер/время</h1>
+      <div style="width: 300px" >
+        <form [formGroup]="addForm" (ngSubmit)="addPrice()">
+          <label class="col-form-label">Новый размер часов</label>
+          <input class="form-control" type="text" placeholder="Новый размер часов" formControlName="size" required>
+          <label class="col-form-label">Соответствующая цена размеру часов</label>
+          <input class="form-control" type="text" placeholder="Цена" formControlName="price" required>
+          <p></p>
+          <button type="submit" class="btn btn-success"  [disabled]="!addForm.valid">Добавить в список город</button>
+        </form>
+      </div>
+
+    </div>
+    <div *ngIf="flagedit">
+      <h1>Редактировать зависимость</h1>
+      <div style="width: 300px" >
+        <form [formGroup]="addForm" (ngSubmit)="pushEdit()">
+          <label class="col-form-label">Действующий размер часов '{{price.size}}' </label>
+          <input class="form-control" type="text" [ngModel]="price.size" formControlName="size" required>
+          <label class="col-form-label">Действующая цена грн '{{price.price}}' </label>
+          <input class="form-control" type="text" [ngModel]="price.price" formControlName="price" required>
+          <p></p>
+          <button type="submit" class="btn btn-success" >Изменить</button>
+        </form>
+      </div>
+    </div>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Размер часов</th>
+        <th scope="col">Цена грн</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info" *ngFor="let price of price_option">
+        <th scope="row">{{price.size}}</th>
+        <td>{{price.price}} грн</td>
+        <td></td>
+        <td></td>
+        <td><button type="button" class="btn btn-warning" (click)="onedit(price)">Редактировать</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(price.id)">Удалить</button> </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

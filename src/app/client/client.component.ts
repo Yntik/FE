@@ -17,6 +17,8 @@ import {formatDate} from '@angular/common';
 export class ClientComponent implements OnInit{
   inputControl: number[] = [0, 0, 0] ;
   citys: any ;
+  price_option: any ;
+  price: {} ;
   masters: any;
   client: any;
   freemasters = false ;
@@ -24,12 +26,12 @@ export class ClientComponent implements OnInit{
   constructor(private apiService: ApiService, private storage: LocalStorageService, private router: Router) {}
 
   addForm = new FormGroup({
-    name: new FormControl('', [ Validators.required, Validators.minLength(3)] ),
-    email: new FormControl('', [ Validators.required, Validators.email, Validators.pattern("^\\w+@\\w+\\.\\w{2,4}$")]),
-    size: new FormControl('', Validators.required),
-    citys: new FormControl('', Validators.required),
-    datetime: new FormControl(new Date(), Validators.required),
-    master: new FormControl('', Validators.required)
+      name: new FormControl('', [ Validators.required, Validators.minLength(3)] ),
+      email: new FormControl('', [ Validators.required, Validators.email, Validators.pattern("^\\w+@\\w+\\.\\w{2,4}$")]),
+      price_option: new FormControl({}, Validators.required),
+      citys: new FormControl('', Validators.required),
+      datetime: new FormControl(new Date(), Validators.required),
+      master: new FormControl('', Validators.required)
   });
 
   ngOnInit(): void {
@@ -38,6 +40,11 @@ export class ClientComponent implements OnInit{
       },err => {
 		  console.log(err) ;
       });
+      this.apiService.getPrice().subscribe(res =>{
+        this.price_option = res.data ;
+      }, err => {
+          console.log(err) ;
+      });
   }
 
 
@@ -45,9 +52,16 @@ export class ClientComponent implements OnInit{
   checkmasters(index: number) {
     this.inputControl[index] = 1 ;
     if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
+        var price = {} ;
+        for (var i in this.price_option){
+            if (this.price_option[i].id === Number(this.addForm.value.price_option)) {
+                this.price = this.price_option[i] ;
+                price = this.price_option[i] ;
+            }
+        }
       this.client = this.addForm.value ;
       this.apiService.letmasters(
-        this.addForm.value.size,
+        price.size,
         this.addForm.value.citys,
         this.addForm.value.datetime).subscribe(res => {
         this.masters = res.data ;
@@ -79,7 +93,7 @@ export class ClientComponent implements OnInit{
       this.addForm.value.name,
       this.addForm.value.email,
       this.addForm.value.citys,
-      this.addForm.value.size,
+      this.price,
       master,
       this.addForm.value.datetime).subscribe(res => {
       this.success = res.success ;

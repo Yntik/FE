@@ -13,6 +13,7 @@
         <th scope="col">Город</th>
         <th scope="col">Размер часов</th>
         <th scope="col">Имя мастера</th>
+        <th scope="col">Цена</th>
         <th scope="col">Начало работы</th>
         <th scope="col">Конец работы</th>
         <th></th>
@@ -26,6 +27,7 @@
         <td>{{order.city}} </td>
         <td>{{order.size}}</td>
         <td>{{order.name}}</td>
+        <td>₴ {{order.price}}</td>
         <td>{{order.start | date : 'dd-MM-yyyy, H:mm'}}</td>
         <td>{{order.end | date : 'dd-MM-yyyy, H:mm'}}</td>
         <td><button type="button" class="btn btn-warning" (click)="onEdit(order)">Редактировать</button></td>
@@ -44,12 +46,10 @@
         <input class="form-control" type="text" placeholder="Имя" [ngModel]="order.client" formControlName="name">
         <label class="col-form-label">Действующий Email '{{order.email}} '</label>
         <input class="form-control" type="Email" placeholder="Email@example.com"  [ngModel]="order.email"formControlName="email">
-        <label class="col-form-label">Действующий размер часов {{order.size }}</label>
-        <select class="custom-select" [ngModel]="order.size" formControlName="size" >
-          <option  [value]="1">1</option>
-          <option  [value]="2">2</option>
-          <option  [value]="3">3</option>
-        </select>
+        <label class="col-form-label">Действующее размер часов {{order.size}}</label>
+        <input class="form-control" type="text" placeholder="1"  [ngModel]="order.size"formControlName="size">
+        <label class="col-form-label">Действующее стоимость работы {{order.price}} грн</label>
+        <input class="form-control" type="text" placeholder="1"  [ngModel]="order.price"formControlName="price">
         <label class="col-form-label">Действующий город {{order.city}} </label>
         <select class="custom-select" [ngModel]="order.city" formControlName="citys" >
           <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>

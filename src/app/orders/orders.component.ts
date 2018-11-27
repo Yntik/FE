@@ -12,24 +12,27 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 
 export class OrdersComponent implements OnInit {
-  orders: string;
-  client: any;
-  master: any;
-  masters: any;
-  order: any ;
-  citys: any;
-  getPage = false;
-  onList = true;
-  freemasters = false ;
-  length = 0 ;
-  onDiv: boolean[] = [false, false, false]; // bulb
+    orders: string;
+    client: any;
+    master: any;
+    masters: any;
+    order: any ;
+    price_option: any ;
+    price: {} ;
+    citys: any;
+    getPage = false;
+    onList = true;
+    freemasters = false ;
+    length = 0 ;
+    onDiv: boolean[] = [false, false, false]; // bulb
   constructor(private apiService: ApiService, private storage: LocalStorageService, private router: Router) {
   }
 
   addForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    size: new FormControl('', Validators.required),
+      size: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required),
     citys: new FormControl('', this.citys),
     datetime: new FormControl(new Date()),
     master: new FormControl('', this.masters)
@@ -38,6 +41,10 @@ export class OrdersComponent implements OnInit {
   getCitys() {
     this.apiService.getCitys().subscribe(res => {
       this.citys = res.data ;
+    },err => {
+    });
+    this.apiService.getPrice().subscribe(res => {
+        this.price_option = res.data ;
     },err => {
     });
   }
@@ -49,6 +56,7 @@ export class OrdersComponent implements OnInit {
       this.addForm.value.name,
       this.addForm.value.email,
       this.addForm.value.size,
+        this.addForm.value.price,
       this.addForm.value.citys,
       this.addForm.value.datetime,
       this.addForm.value.master ).subscribe(res =>{
@@ -98,15 +106,18 @@ export class OrdersComponent implements OnInit {
 
 
   checkmasters() {
+      console.log('Checkmaster init');
     this.client = this.addForm.value ;
     this.apiService.letmasters(
       this.addForm.value.size,
       this.addForm.value.citys,
       this.addForm.value.datetime).subscribe(res => {
+        console.log('Checkmaster init');
       this.masters = res.data ;
       if (this.masters.length === 0) this.freemasters = true ;
       else this.freemasters = false ;
     },err => {
+        console.log('err', err)
     });
   }
 

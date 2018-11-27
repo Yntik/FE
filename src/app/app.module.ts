@@ -22,6 +22,7 @@ import {OrdersComponent} from './orders/orders.component';
 import {AddorderComponent} from './orders/addorder.component';
 import {ClientlistComponent} from './client/clientlist.component';
 import {NotfoundComponent} from './notfound/notfound.component';
+import {PriceComponent} from './prices/price.component';
 
 const appRoutes: Routes = [
 	{ path: '',   redirectTo: '/homepage', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'orders', component: OrdersComponent},
   { path: 'addorder', component: AddorderComponent},
   { path: 'notfound', component: NotfoundComponent},
+    { path: 'price', component: PriceComponent},
 
 
   //{ path: '**', component: PageNotFoundComponent }
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     ClientlistComponent,
     OrdersComponent,
     AddorderComponent,
-    NotfoundComponent
+    NotfoundComponent,
+      PriceComponent
   ],
   imports: [
     BrowserModule,
