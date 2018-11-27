@@ -65,6 +65,7 @@ export class ClientComponent implements OnInit{
         }
       this.client = this.addForm.value ;
       this.apiService.letmasters(
+          'new',
         price.size,
         this.addForm.value.citys,
         this.addForm.value.datetime).subscribe(res => {

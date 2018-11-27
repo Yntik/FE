@@ -13,6 +13,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class OrdersComponent implements OnInit {
     orders: string;
+    inputControl: number[] = [1, 1, 0] ;
     client: any;
     master: any;
     masters: any;
@@ -50,7 +51,6 @@ export class OrdersComponent implements OnInit {
   }
 
   editorder() {
-    console.log(this.order) ;
     this.apiService.editorder(
       this.order.id,
       this.addForm.value.name,
@@ -79,6 +79,8 @@ export class OrdersComponent implements OnInit {
     this.getCitys() ;
   }
 
+
+
   onlist() {
     this.addForm.reset() ;
     this.onList = !this.onList ;
@@ -105,20 +107,23 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  checkmasters() {
-      console.log('Checkmaster init');
-    this.client = this.addForm.value ;
-    this.apiService.letmasters(
-      this.addForm.value.size,
-      this.addForm.value.citys,
-      this.addForm.value.datetime).subscribe(res => {
-        console.log('Checkmaster init');
-      this.masters = res.data ;
-      if (this.masters.length === 0) this.freemasters = true ;
-      else this.freemasters = false ;
-    },err => {
-        console.log('err', err)
-    });
+  checkmasters(index: number) {
+      this.inputControl[index] = 1 ;
+      if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
+          this.client = this.addForm.value ;
+          this.apiService.letmasters(
+              this.order.id,
+              this.addForm.value.size,
+              this.addForm.value.citys,
+              this.addForm.value.datetime).subscribe(res => {
+                this.masters = res.data;
+              if (this.masters.length === 0) this.freemasters = true ;
+              else this.freemasters = false ;
+          },err => {
+              console.log('err', err)
+          });
+      }
+
   }
 
   delete(id: string) {

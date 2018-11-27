@@ -59,8 +59,8 @@ export class ApiService {
     });
   }
 
-  public letmasters(size: string, city: string, datetime: string): Observable<ApiResponse> {
-      const headers = new HttpHeaders ({'size': size, 'city':  encodeURI(city), 'datetime': datetime});
+  public letmasters(option: any, size: string, city: string, datetime: string): Observable<ApiResponse> {
+        const headers = new HttpHeaders ({'option': String(option), 'size': String(size), 'city':  encodeURI(city), 'datetime': datetime});
       const options = {headers: headers};
     return this.http.get<ApiResponse>(this.BASE_URL + '/getfreemasters', options);
   }

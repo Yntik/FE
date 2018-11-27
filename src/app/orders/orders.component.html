@@ -13,6 +13,7 @@
         <th scope="col">Город</th>
         <th scope="col">Размер часов</th>
         <th scope="col">Имя мастера</th>
+        <th scope="col">Фамилия мастера</th>
         <th scope="col">Цена</th>
         <th scope="col">Начало работы</th>
         <th scope="col">Конец работы</th>
@@ -27,6 +28,7 @@
         <td>{{order.city}} </td>
         <td>{{order.size}}</td>
         <td>{{order.name}}</td>
+        <td>{{order.surname}}</td>
         <td>₴ {{order.price}}</td>
         <td>{{order.start | date : 'dd-MM-yyyy, H:mm'}}</td>
         <td>{{order.end | date : 'dd-MM-yyyy, H:mm'}}</td>
@@ -46,12 +48,16 @@
         <input class="form-control" type="text" placeholder="Имя" [ngModel]="order.client" formControlName="name">
         <label class="col-form-label">Действующий Email '{{order.email}} '</label>
         <input class="form-control" type="Email" placeholder="Email@example.com"  [ngModel]="order.email"formControlName="email">
-        <label class="col-form-label">Действующее размер часов {{order.size}}</label>
-        <input class="form-control" type="text" placeholder="1"  [ngModel]="order.size"formControlName="size">
+        <label class="col-form-label">Действующий размер часов {{order.size }}</label>
+        <select class="custom-select" [ngModel]="order.size" formControlName="size" (change)="checkmasters(0)">
+          <option  [value]="1">1</option>
+          <option  [value]="2">2</option>
+          <option  [value]="3">3</option>
+        </select>
         <label class="col-form-label">Действующее стоимость работы {{order.price}} грн</label>
         <input class="form-control" type="text" placeholder="1"  [ngModel]="order.price"formControlName="price">
-        <label class="col-form-label">Действующий город {{order.city}} </label>
-        <select class="custom-select" [ngModel]="order.city" formControlName="citys" >
+        <label class="col-form-label" >Действующий город {{order.city}} </label>
+        <select class="custom-select" [ngModel]="order.city" formControlName="citys" (change)="checkmasters(1)">
           <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
         </select>
         <label class="col-form-label">Текущая дата и время заказа:<br>
@@ -59,10 +65,11 @@
         </label>
         <label class="col-form-label" *ngIf="freemasters" style="color: red">В указаное время нет свободных мастеров</label>
         <label class="col-form-label" *ngIf="freemasters" style="color: red">Выбирете другое время</label>
-        <input class="form-control" type="datetime-local"  min="00:00" max="23:00"  step="3600" formControlName="datetime">
+        <input class="form-control" type="datetime-local"  min="00:00" max="23:00"  step="3600" formControlName="datetime" (change)="checkmasters(2)">
         <p></p>
-        <button type="button" class="btn btn-success" (click)="checkmasters()">Показать список мастеров</button>
+
         <p></p>
+        <label class="col-form-label">Действующее мастер {{order.name}} {{order.surname}} Рейтинг {{order.rating}}</label>
         <select class="custom-select"  formControlName="master" >
           <option *ngFor="let master of masters" [value]="master.id" >
             {{master.name}}
@@ -71,7 +78,7 @@
             {{master.rating}}
           </option>
         </select>
-        <button type="submit" class="btn btn-success" >Отправить заявку</button>
+        <button type="submit" class="btn btn-success" >Отредактировать заказ</button>
       </form>
     </div>
   </div>
