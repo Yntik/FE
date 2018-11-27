@@ -49,12 +49,12 @@ export class AddorderComponent implements OnInit{
   }
 
 
-
+  //check zapataya
   checkmasters(index: number) {
     this.inputControl[index] = 1 ;
     if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
       this.client = this.addForm.value ;
-      this.apiService.letmasters('new'
+      this.apiService.letmasters('new',
         this.addForm.value.size,
         this.addForm.value.citys,
         this.addForm.value.datetime).subscribe(res => {
