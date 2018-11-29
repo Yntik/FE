@@ -60,14 +60,12 @@ export class ApiService {
   }
 
   public letmasters(option: any, size: string, city: string, datetime: string): Observable<ApiResponse> {
-        const headers = new HttpHeaders ({'option': String(option), 'size': String(size), 'city':  encodeURI(city), 'datetime': datetime});
-      const options = {headers: headers};
-    return this.http.get<ApiResponse>(this.BASE_URL + '/getfreemasters', options);
+        const params = new HttpParams({fromString: `datetime=${datetime}&size=${size}&city=${city}&option=${option}`});
+        return this.http.get<ApiResponse>(this.BASE_URL + '/free-master', {responseType: "json", params});
   }
 
   public pushorder(name: string, email: string, city: string, price_option: any, master: object, datetime: string): Observable<ApiResponse> {
-
-    return this.http.post<ApiResponse>(this.BASE_URL + '/order', {
+        return this.http.post<ApiResponse>(this.BASE_URL + '/order', {
         client: name,
         email: email,
         size: price_option.size,
@@ -122,9 +120,9 @@ export class ApiService {
   }
     // this commit for heroku
   public delete(id: string, route: string): Observable<ApiResponse> {
-      const headers = new HttpHeaders ({'token': this.storage.load(), 'id':  String(id), 'route': route});
-      const options = {headers: headers};
-    return this.http.delete<ApiResponse>(this.BASE_URL + '/protected/delete', options);
+      const params = new HttpParams({fromString: `id=${id}&route=${route}`});
+      const headers = new HttpHeaders ({'token': this.storage.load()});
+    return this.http.delete<ApiResponse>(this.BASE_URL + '/protected/delete', {responseType: "json", headers:headers, params});
   }
 
   public addcity(newcity: string): Observable<ApiResponse> {

@@ -12,6 +12,8 @@ import {Router} from '@angular/router';
 })
 export class AddorderComponent implements OnInit{
   citys: any ;
+    price_option: any ;
+    price: Object;
   masters: any;
   client: any;
   freemasters = false ;
@@ -21,7 +23,7 @@ export class AddorderComponent implements OnInit{
   addForm = new FormGroup({
     name: new FormControl('', [ Validators.required, Validators.minLength(3)] ),
     email: new FormControl('', [ Validators.required, Validators.email, Validators.pattern("^\\w+@\\w+\\.\\w{2,4}$")]),
-    size: new FormControl('', Validators.required),
+      price_option: new FormControl({}, Validators.required),
     citys: new FormControl('', Validators.required),
     datetime: new FormControl(new Date(), Validators.required),
     master: new FormControl('', Validators.required)
@@ -39,6 +41,11 @@ export class AddorderComponent implements OnInit{
         this.citys = res.data ;
       },err => {
       });
+        this.apiService.getPrice().subscribe(res =>{
+            this.price_option = res.data ;
+        }, err => {
+            console.log(err) ;
+        });
     }, err => {
       this.router.navigate(['/login']) ;
     });
@@ -53,9 +60,20 @@ export class AddorderComponent implements OnInit{
   checkmasters(index: number) {
     this.inputControl[index] = 1 ;
     if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
+        var price =  {
+            size: '',
+            price: ''
+
+        }
+        for (var i in this.price_option){
+            if (this.price_option[i].id === Number(this.addForm.value.price_option)) {
+                this.price = this.price_option[i] ;
+                price = this.price_option[i] ;
+            }
+        }
       this.client = this.addForm.value ;
       this.apiService.letmasters('new',
-        this.addForm.value.size,
+        price.size,
         this.addForm.value.citys,
         this.addForm.value.datetime).subscribe(res => {
         this.masters = res.data ;
@@ -78,7 +96,7 @@ export class AddorderComponent implements OnInit{
       this.addForm.value.name,
       this.addForm.value.email,
       this.addForm.value.citys,
-      this.addForm.value.size,
+      this.price,
       master,
       this.addForm.value.datetime).subscribe(res => {
       this.onlist() ;
