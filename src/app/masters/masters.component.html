@@ -42,8 +42,8 @@
         <label class="col-form-label">Действующее рейтинг '{{master.rating}}'</label>
         <input class="form-control" type="number" min="0" max="5" [ngModel]="master.rating" formControlName="rating">
         <label class="col-form-label">Действующее город '{{master.city}}'</label>
-        <select class="custom-select" [ngModel]="master.city" formControlName="citys" >
-          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        <select class="custom-select" [ngModel]="master.idcity" formControlName="citys" >
+          <option *ngFor="let city of citys" [value]="city.id">{{city.city}}</option>
         </select>
         <p></p>
         <button type="submit" class="btn btn-success">Добавить изменения</button>

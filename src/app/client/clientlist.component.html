@@ -9,8 +9,8 @@
           <label class="col-form-label">Действующий электронный адресс '{{client.email}}' </label>
           <input class="form-control" type="text" [ngModel]="client.email" formControlName="email">
           <label class="col-form-label">Действующие  имя города '{{client.city}}' </label>
-          <select class="custom-select" [ngModel]="client.city" formControlName="citys" >
-            <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+          <select class="custom-select" [ngModel]="client.idcity" formControlName="citys" >
+            <option *ngFor="let city of citys" [value]="city.id">{{city.city}}</option>
           </select>
           <p></p>
           <button type="submit" class="btn btn-success">Изменить</button>
