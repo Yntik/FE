@@ -40,7 +40,7 @@ export class ApiService {
   }
 
     public getPrice(): Observable<ApiResponse> {
-        return this.http.get<ApiResponse>(this.BASE_URL + '/price') ;
+        return this.http.get<ApiResponse>(this.BASE_URL + '/product') ;
     }
 
   public getClients(): Observable<ApiResponse> {
@@ -105,7 +105,9 @@ export class ApiService {
     price: string,
     city: string,
     datetime: string,
-    idmaster: string): Observable<ApiResponse> {
+    idmaster: string,
+    idclient: string,
+    idproduct: string): Observable<ApiResponse> {
     return this.http.put<ApiResponse>(this.BASE_URL + '/protected/order', {
       token: this.storage.load(),
       id: id,
@@ -115,7 +117,9 @@ export class ApiService {
         price: Number(price),
       city: city,
       idmaster: idmaster,
-      datetime: datetime
+      datetime: datetime,
+        idclient: idclient,
+        idproduct: idproduct
     });
   }
     // this commit for heroku
@@ -141,7 +145,7 @@ export class ApiService {
   }
 
     public editPrice(id: string, size: number, price: number): Observable<ApiResponse> {
-        return this.http.put<ApiResponse>(this.BASE_URL + '/protected/price', {
+        return this.http.put<ApiResponse>(this.BASE_URL + '/protected/product', {
             token: this.storage.load(),
             id: id,
             size: size,
@@ -150,7 +154,7 @@ export class ApiService {
     }
 
     public addPrice(size: Number, price: Number): Observable<ApiResponse> {
-        return this.http.post<ApiResponse>(this.BASE_URL + '/protected/price', {
+        return this.http.post<ApiResponse>(this.BASE_URL + '/protected/product', {
             token: this.storage.load(),
             size: size,
             price: price

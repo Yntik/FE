@@ -59,7 +59,9 @@ export class OrdersComponent implements OnInit {
         this.addForm.value.price,
       this.addForm.value.citys,
       this.addForm.value.datetime,
-      this.addForm.value.master ).subscribe(res =>{
+      this.addForm.value.master,
+        this.order.idclient,
+        this.order.idproduct).subscribe(res =>{
       this.addForm.reset() ;
       this.apiService.getOrders().subscribe(res => {
         this.orders = res.data ;

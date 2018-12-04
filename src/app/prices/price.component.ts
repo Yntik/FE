@@ -90,7 +90,7 @@ export class PriceComponent implements OnInit {
 
   delete(id: string) {
     if (window.confirm('Вы действительно хотите удалить запись?')) {
-      this.apiService.delete(id,'price').subscribe(res => {
+      this.apiService.delete(id,'product').subscribe(res => {
         this.apiService.getPrice().subscribe( res => {
           this.price = res.data ;
 		  this.length = res.data.length ;

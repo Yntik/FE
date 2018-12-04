@@ -57,8 +57,8 @@
         <label class="col-form-label">Действующее стоимость работы {{order.price}} грн</label>
         <input class="form-control" type="text" placeholder="1"  [ngModel]="order.price"formControlName="price">
         <label class="col-form-label" >Действующий город {{order.city}} </label>
-        <select class="custom-select" [ngModel]="order.city" formControlName="citys" (change)="checkmasters(1)">
-          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+        <select class="custom-select" [ngModel]="order.idcity" formControlName="citys" (change)="checkmasters(1)">
+          <option *ngFor="let city of citys" [value]="city.id">{{city.city}}</option>
         </select>
         <label class="col-form-label">Текущая дата и время заказа:<br>
           {{order.start | date : 'dd-MM-yyyy, H:mm'}}

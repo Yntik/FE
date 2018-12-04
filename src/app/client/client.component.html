@@ -18,7 +18,7 @@
         </select>
         <label class="col-form-label">Город</label>
         <select class="custom-select"  formControlName="citys" (change)="checkmasters(1)">
-          <option *ngFor="let city of citys" [value]="city.city">{{city.city}}</option>
+          <option *ngFor="let city of citys" [value]="city.id">{{city.city}}</option>
         </select>
         <label class="col-form-label">Дата и время</label>
         <input class="form-control" type="datetime-local" min="00:00" max="23:00"  step="3600" formControlName="datetime" (change)="checkmasters(2)">
