@@ -46,6 +46,7 @@ export class OrdersComponent implements OnInit {
     });
     this.apiService.getPrice().subscribe(res => {
         this.price_option = res.data ;
+        console.log(this.price_option);
     },err => {
     });
   }
