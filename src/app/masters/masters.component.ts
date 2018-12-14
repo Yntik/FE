@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   providers: [ApiService]
 })
 export class MastersComponent implements OnInit {
-  masters: string ;
+  masters: object ;
   master: any ;
   citys: any ;
   getPage = false ;
@@ -41,7 +41,7 @@ export class MastersComponent implements OnInit {
     });
     this.apiService.getMasters().subscribe(res => {
       this.masters = res.data ;
-	  this.length = res.data.length ;
+	  this.length = Object(res.data).length ;
     },err => {
     });
   }
@@ -64,7 +64,7 @@ export class MastersComponent implements OnInit {
       this.addForm.reset() ;
       this.apiService.getMasters().subscribe(res => {
         this.masters = res.data ;
-		this.length = res.data.length ;
+		this.length = Object(res.data).length ;
         this.onlist() ;
         console.log(this.masters) ;
       },err =>{
@@ -80,7 +80,7 @@ export class MastersComponent implements OnInit {
       this.apiService.delete(id,'masters').subscribe(res =>{
         this.apiService.getMasters().subscribe(res => {
           this.masters = res.data ;
-		  this.length = res.data.length ;
+		  this.length = Object(res.data).length ;
           console.log(this.masters) ;
         },err =>{
         });

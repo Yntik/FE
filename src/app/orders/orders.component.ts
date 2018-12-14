@@ -12,7 +12,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 
 export class OrdersComponent implements OnInit {
-    orders: string;
+    orders: object;
     inputControl: number[] = [1, 1, 0] ;
     client: any;
     master: any;
@@ -66,7 +66,7 @@ export class OrdersComponent implements OnInit {
       this.addForm.reset() ;
       this.apiService.getOrders().subscribe(res => {
         this.orders = res.data ;
-		this.length = res.data.length ;
+		this.length = Object(res.data).length ;
         this.onlist() ;
       },err => {
       });
@@ -104,7 +104,7 @@ export class OrdersComponent implements OnInit {
     this.apiService.getOrders().subscribe(res => {
       console.log(res.data) ;
       this.orders = res.data;
-	  this.length = res.data.length ;
+	  this.length = Object(res.data).length ;
     }, err => {
     });
   }
@@ -134,7 +134,7 @@ export class OrdersComponent implements OnInit {
       this.apiService.delete(id,'orders').subscribe(res =>{
         this.apiService.getOrders().subscribe(res => {
           this.orders = res.data ;
-		  this.length = res.data.length ;
+		  this.length = Object(res.data).length ;
         },err =>{
         });
         console.log(res.data) ;

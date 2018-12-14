@@ -12,8 +12,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class PriceComponent implements OnInit {
 
-    data: string;
-    price_option: string;
+    data: object;
+    price_option: object;
     flagadd = false;
     flagedit = false;
     price: any;
@@ -40,7 +40,7 @@ export class PriceComponent implements OnInit {
         });
         this.apiService.getPrice().subscribe(res => {
             this.price_option = res.data;
-            this.length = res.data.length;
+            this.length = Object(res.data).length;
         }, err => {
         });
     }
@@ -61,7 +61,7 @@ export class PriceComponent implements OnInit {
             else this.flagadd = !this.flagadd;
             this.apiService.getPrice().subscribe(res => {
                 this.price_option = res.data;
-                this.length = res.data.length;
+                this.length = Object(res.data).length;
             }, err => {
             });
         }, err => {
@@ -82,7 +82,7 @@ export class PriceComponent implements OnInit {
             this.flagadd = !this.flagadd;
             this.apiService.getPrice().subscribe(res => {
                 this.price_option = res.data;
-                this.length = res.data.length;
+                this.length = Object(res.data).length;
             }, err => {
             });
         }, err => {
@@ -96,7 +96,7 @@ export class PriceComponent implements OnInit {
             this.apiService.delete(id, 'product').subscribe(res => {
                 this.apiService.getPrice().subscribe(res => {
                     this.price = res.data;
-                    this.length = res.data.length;
+                    this.length = Object(res.data).length;
                 }, err => {
                 });
             }, err => {

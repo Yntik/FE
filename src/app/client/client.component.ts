@@ -64,7 +64,7 @@ export class ClientComponent implements OnInit {
                     price = this.price_option[i];
                 }
             }
-            this.paypal.finalAmount = this.price.price;
+            this.paypal.finalAmount = Object(this.price).price;
             this.client = this.addForm.value;
             this.apiService.letmasters(
                 'new',
@@ -103,7 +103,7 @@ export class ClientComponent implements OnInit {
             this.price,
             master,
             this.addForm.value.datetime).subscribe(res => {
-            this.paypal.customId = res.data.insertId;
+            this.paypal.customId = Object(res.data).insertId;
             this.paypal.ngAfterViewChecked();
             this.success = res.success;
         }, err => {
