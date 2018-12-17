@@ -129,9 +129,9 @@ export class OrdersComponent implements OnInit {
 
   }
 
-  delete(id: string) {
+  delete(id: string, paypal_id: string) {
     if (window.confirm('Вы действительно хотите удалить запись?')) {
-      this.apiService.delete(id,'orders').subscribe(res =>{
+      this.apiService.deleteOrder(id, paypal_id,'orders').subscribe(res =>{
         this.apiService.getOrders().subscribe(res => {
           this.orders = res.data ;
 		  this.length = Object(res.data).length ;

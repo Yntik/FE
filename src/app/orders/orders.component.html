@@ -33,7 +33,7 @@
         <td>{{order.start | date : 'dd-MM-yyyy, H:mm'}}</td>
         <td>{{order.end | date : 'dd-MM-yyyy, H:mm'}}</td>
         <td><button type="button" class="btn btn-warning" (click)="onEdit(order)">Редактировать</button></td>
-        <td><button type="button" class="btn btn-danger" (click)="delete(order.id)">Удалить</button> </td>
+        <td><button type="button" class="btn btn-danger" (click)="delete(order.id, order.idpaypal)">Удалить</button> </td>
       </tr>
       </tbody>
     </table>
