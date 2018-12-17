@@ -11,7 +11,7 @@ import {ApiService} from '../service/api-service';
 })
 export class AdminComponent implements OnInit{
 
-  data: string ;
+  data: object ;
   ranNum: number ;
   constructor(private apiService : ApiService, private storage: LocalStorageService, private router: Router) {
   }

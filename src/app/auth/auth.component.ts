@@ -27,7 +27,7 @@ export class AuthComponent {
       this.loginForm.value.password
     ).subscribe(res => {
       console.log('login comp', res.data) ;
-      this.storage.save(res.data) ;
+      this.storage.save(String(res.data)) ;
       this.router.navigate(['/admin'])
     },err => {
       this.error = err ;

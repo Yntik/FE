@@ -131,6 +131,12 @@ export class ApiService {
         return this.http.delete<ApiResponse>(this.BASE_URL + `/protected/${route}`, {responseType: 'json', headers: headers, params});
     }
 
+    public deleteOrder(id: string, paypal_id: string, route: string): Observable<ApiResponse> {
+        const params = new HttpParams({fromString: `id=${id}&route=${route}&paypal_id=${paypal_id}`});
+        const headers = new HttpHeaders({'token': this.storage.load()});
+        return this.http.delete<ApiResponse>(this.BASE_URL + `/protected/${route}`, {responseType: 'json', headers: headers, params});
+    }
+
     public addcity(newcity: string): Observable<ApiResponse> {
         return this.http.post<ApiResponse>(this.BASE_URL + '/protected/cities', {
             token: this.storage.load(),

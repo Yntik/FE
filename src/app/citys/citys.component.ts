@@ -13,7 +13,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CitysComponent implements OnInit {
 
     data: string;
-    citys: string;
+    citys: object;
     flagadd = false;
     flagedit = false;
     city: any;
@@ -33,13 +33,13 @@ export class CitysComponent implements OnInit {
             return;
         }
         this.apiService.checkToken(token).subscribe(res => {
-            this.data = res.data;
+            this.data = String(res.data);
         }, err => {
             this.router.navigate(['/login']);
         });
         this.apiService.getCitys().subscribe(res => {
             this.citys = res.data;
-            this.length = res.data.length;
+            this.length = Object(res.data).length;
         }, err => {
         });
     }
@@ -59,7 +59,7 @@ export class CitysComponent implements OnInit {
             else this.flagadd = !this.flagadd;
             this.apiService.getCitys().subscribe(res => {
                 this.citys = res.data;
-                this.length = res.data.length;
+                this.length = Object(res.data).length;
             }, err => {
             });
         }, err => {
@@ -79,7 +79,7 @@ export class CitysComponent implements OnInit {
             this.flagadd = !this.flagadd;
             this.apiService.getCitys().subscribe(res => {
                 this.citys = res.data;
-                this.length = res.data.length;
+                this.length = Object(res.data).length;
             }, err => {
             });
         }, err => {
@@ -93,7 +93,7 @@ export class CitysComponent implements OnInit {
             this.apiService.delete(id, 'cities').subscribe(res => {
                 this.apiService.getCitys().subscribe(res => {
                     this.citys = res.data;
-                    this.length = res.data.length;
+                    this.length = Object(res.data).length;
                 }, err => {
                 });
             }, err => {

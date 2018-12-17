@@ -13,7 +13,7 @@ import {formatDate} from '@angular/common';
 })
 export class ClientlistComponent implements OnInit{
   citys: any ;
-  clients: string;
+  clients: object;
   client: any;
   flagedit = false ;
   freemasters = false ;
@@ -35,7 +35,7 @@ export class ClientlistComponent implements OnInit{
   ngOnInit(): void {
     this.apiService.getClients().subscribe(res => {
       this.clients = res.data ;
-	  this.length = res.data.length ;
+	  this.length = Object(res.data).length ;
     },err => {
     });
     this.apiService.getCitys().subscribe(res => {
@@ -53,7 +53,7 @@ export class ClientlistComponent implements OnInit{
       this.addForm.reset() ;
       this.apiService.getClients().subscribe(res => {
         this.client = res.data ;
-		this.length = res.data.length ;
+		this.length = Object(res.data).length ;
         if (this.flagedit) this.flagedit = !this.flagedit ;
         else this.flagadd = !this.flagadd ;
       },err =>{
@@ -67,7 +67,7 @@ export class ClientlistComponent implements OnInit{
       this.apiService.delete(id,'clients').subscribe(res =>{
         this.apiService.getClients().subscribe(res => {
           this.clients = res.data ;
-		  this.length = res.data.length ;
+		  this.length = Object(res.data).length ;
         },err =>{
         });
         console.log(res.data) ;

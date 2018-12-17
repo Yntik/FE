@@ -6,13 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { RouterModule, Routes } from '@angular/router';
 
-
+import { ApiService } from './service/api-service';
+import {PaypalapiService} from  './service/paypalapi-service'
 
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
-import { ApiService } from './service/api-service';
 import { LocalStorageService } from './service/local-storage-service';
 import { MastersComponent } from './masters/masters.component';
 import { AddmasterComponent } from './masters/addmaster.component';
@@ -73,6 +73,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     ApiService,
+    PaypalapiService,
     LocalStorageService
   ],
   bootstrap: [AppComponent]
