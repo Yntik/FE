@@ -49,14 +49,14 @@
         <label class="col-form-label">Действующий Email '{{order.email}} '</label>
         <input class="form-control" type="Email" placeholder="Email@example.com"  [ngModel]="order.email"formControlName="email">
         <label class="col-form-label">Действующий размер часов {{order.size }}</label>
-        <select class="custom-select" formControlName="price" [ngModel]="order.idproduct" (change)="checkmasters(0)">
+        <select class="custom-select" formControlName="size" [ngModel]="order.idproduct" (change)="checkmasters(0)">
           <option  *ngFor="let price of price_option" [value]="price.id" >
             {{price.size}}
             размер
           </option>
         </select>
         <label class="col-form-label">Действующее стоимость работы {{order.price}} грн</label>
-        <input class="form-control" type="text" placeholder="1"  [ngModel]="order.price"formControlName="price">
+        <input class="form-control" type="text" placeholder="1"  [ngModel]="order.price" formControlName="price">
         <label class="col-form-label" >Действующий город {{order.city}} </label>
         <select class="custom-select" [ngModel]="order.idcity" formControlName="citys" (change)="checkmasters(1)">
           <option *ngFor="let city of citys" [value]="city.id">{{city.city}}</option>
