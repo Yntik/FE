@@ -71,6 +71,7 @@ export class ApiService {
             email: email,
             size: price_option.size,
             price: price_option.price,
+            product: price_option.id,
             city: city,
             master: master,
             datetime: datetime

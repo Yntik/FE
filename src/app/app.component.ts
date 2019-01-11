@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 import {PaypalapiService} from './service/paypalapi-service';
 import {LocalStorageService} from './service/local-storage-service' ;
+import {localStorage} from 'localStorage' ;
 
 @Component({
     selector: 'app-root',

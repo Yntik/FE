@@ -7,7 +7,7 @@ import { StorageServiceModule } from 'angular-webstorage-service';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ApiService } from './service/api-service';
-import {PaypalapiService} from  './service/paypalapi-service'
+import {PaypalapiService} from './service/paypalapi-service';
 
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,7 @@ import {NotfoundComponent} from './notfound/notfound.component';
 import {PriceComponent} from './prices/price.component';
 
 const appRoutes: Routes = [
-	{ path: '',   redirectTo: '/homepage', pathMatch: 'full' },
+    { path: '',   redirectTo: '/homepage', pathMatch: 'full' },
 
   { path: 'login', component: AuthComponent},
   { path: 'admin', component: AdminComponent },
@@ -74,7 +74,7 @@ const appRoutes: Routes = [
   providers: [
     ApiService,
     PaypalapiService,
-    LocalStorageService
+    LocalStorageService,
   ],
   bootstrap: [AppComponent]
 })
