@@ -16,14 +16,6 @@ export class AppComponent implements OnInit {
 
     constructor(private storage: LocalStorageService, public router: Router, public paypal: PaypalapiService) {
     }
-
     ngOnInit(): void {
     }
-
-    logout(): void {
-        this.storage.clear();
-        this.router.navigate(['login']);
-    }
-
-
 }
