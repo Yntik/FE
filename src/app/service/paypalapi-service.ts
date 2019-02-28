@@ -9,8 +9,8 @@ declare let paypal: any;
 export class PaypalapiService implements AfterViewChecked {
     addScript: boolean = false;
 
-    finalAmount: number ;
-    customId: number ;
+    finalAmount: number;
+    customId: number;
 
     paypalConfig = {
         env: 'sandbox',
@@ -23,8 +23,10 @@ export class PaypalapiService implements AfterViewChecked {
             return actions.payment.create({
                 payment: {
                     transactions: [
-                        {amount: {total: this.finalAmount, currency: 'USD'},
-                        custom: this.customId}
+                        {
+                            amount: {total: this.finalAmount, currency: 'USD'},
+                            custom: this.customId
+                        }
                     ]
                 }
             });
@@ -32,7 +34,7 @@ export class PaypalapiService implements AfterViewChecked {
         onAuthorize: (data, actions) => {
             return actions.payment.execute().then((payment) => {
                 //Do something when payment is successful
-            })
+            });
         }
     };
 

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'https://shrouded-spire-22347.herokuapp.com'
+  // url: 'https://be-clockware.tk'
+    url: 'http://localhost:3000'
 };
 
 /*
